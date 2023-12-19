@@ -12,6 +12,7 @@ import socket
 import base64
 import os
 import smtplib
+import requests
 from email import encoders
 from email.header import Header
 from email.mime.base import MIMEBase
@@ -58,12 +59,13 @@ def get_global_ip():
     获取电脑的外网 IP 地址
     :return: 外围 IP
     """
-    try:
-        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        s.connect(("8.8.8.8", 80))
-        ip = s.getsockname()[0]
-    finally:
-        s.close()
+    # try:
+    #     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    #     s.connect(("8.8.8.8", 80))
+    #     ip = s.getsockname()[0]
+    # finally:
+    #     s.close()
+    ip = requests.get('https://checkip.amazonaws.com').text.strip()
 
     return ip
 
